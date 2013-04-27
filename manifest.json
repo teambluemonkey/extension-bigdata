@@ -1,0 +1,29 @@
+{
+  "name": "Guardian",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Guardian Helper",
+  "icons": { "16": "icon16.png", 
+			 "48": "icon48.png",
+			 "128": "icon128.png" },
+  "content_scripts": [
+	{
+      "matches": ["http://www.guardian.co.uk/*"],
+      "js": ["jquery.js", "common.js"],
+      "css": ["style.css"],
+	  "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+      "http://192.168.43.118/",
+      "http://192.168.43.228/",
+      "http://ec2-184-73-119-74.compute-1.amazonaws.com/"
+  ],
+  "web_accessible_resources": [
+      "common.js",
+	  "jquery.js",
+      "icons.css",
+      "style.css",
+      "loading.gif"
+  ]
+}
