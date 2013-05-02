@@ -59,6 +59,31 @@
     padding: 2px 7px;
 }
 
+.tj-tag-cloud {
+}
+
+.tj-tag a:link, a:visited, a:hover, a:active {
+    color: white;
+}
+    
+.tj-tag {
+    font-size: 17px;
+    padding: 2px;
+    margin-right: 5px;
+    margin-top: 5px;
+    
+    border-radius: 3px;
+    background: #4444aa;
+    
+    float: left;
+    max-width: 150px;
+    
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: white;
+}
+
 .tj-undefined {
     color: #999999;
 }

@@ -7,7 +7,7 @@ var MODULE_HTML = '                                                 \
     <div id="tj-module">                                            \
         <div id="tj-header">                                        \
             Blue Monkey                                             \
-        </div>                                                      \
+        </div>                                                      \                                                \
         <div id="tj-body">                                          \
             <div id="loading">                                      \
                 <img id="loading-image" src="$LOADING_IMAGE_URL">   \
@@ -24,7 +24,12 @@ var ITEM_HTML = '                             \
            $RATING                            \
        </div>                                 \
    </div>';
-   
+
+var TAG_HTML = '                              \
+       <div class="tj-tag">                   \
+              <a href="$SEARCH_LINK">$TAG_NAME</a>                       \
+       </div>';
+         
 var UNDEFINED_ITEM_HTML = '                   \
    <div class="tj-item">                      \
       <div class="tj-name tj-undefined">      \
@@ -38,6 +43,16 @@ var ERNEST_URL_BASE = 'http://192.168.43.228:3000/guardian/';
 var AMAZON_URL_BASE = 'http://ec2-184-73-119-74.compute-1.amazonaws.com/guardian/';
 var SERVER_URL_BASE = AMAZON_URL_BASE;
 
+function addTag(name) {
+    var module_content = $('#tag-cloud');
+    
+    link = 'http://www.guardian.co.uk/search?q=' + name + '&target=guardian';
+        
+    html = TAG_HTML.replace('$TAG_NAME', name)
+                   .replace('$SEARCH_LINK', link);
+    module_content.append(html);
+};
+
 function addCategory(name, rating) {
     var module_content = $('#tj-body');
     
@@ -50,7 +65,7 @@ function addCategory(name, rating) {
     
     html = ITEM_HTML.replace('$RATING_CLASS', value_class)
                     .replace('$CATEGORY_NAME', name)
-                    .replace('$RATING', rating)
+                    .replace('$RATING', rating);
     module_content.append(html);
 };
 
@@ -99,6 +114,16 @@ else {
             for (var i = 0; i < topics.length; i++) {
                 topic = topics[i];
                 addCategory(topic.title, topic.strength_score.toFixed(2));
+            }
+            
+            $('#tj-body').append('<br/><br/><div id="tag-cloud"></div>');
+            var article_data = data.article_data;
+            var response = article_data.response;
+            var content = response.content;
+            var tags = content.tags;
+            for (var j = 0; j < tags.length; j++) {
+                tag = tags[j];
+                addTag(tag.webTitle);
             }
         }
     });
